@@ -1,16 +1,21 @@
 class Solution {
 public:
     vector<bool> isArraySpecial(vector<int>& nums, vector<vector<int>>& queries) {
-        int n = nums.size();
-        vector<int> interval = {0};
-        vector<bool> ans;
-        for(int i = 0 , j = 1 ; j < n ; j++){
-            if(nums[j] % 2 == nums[j - 1] % 2)
-                i++;
-            interval.push_back(i);
+        vector<vector<int>> special;
+        int n = nums.size() , left , right;
+        for(left = 0 , right = 1 ; right < n ; right++){
+            if(nums[right] % 2 == nums[right - 1] % 2){
+                special.push_back({left , right - 1});
+                left = right;
+            }
         }
-        for(auto it : queries)
-            ans.push_back(interval[it[0]] == interval[it[1]]);
+        special.push_back({left , right});
+        vector<bool> ans;
+        for(auto it : queries){
+            int left = it[0] , right = it[1];
+            int i = upper_bound(special.begin() , special.end() , vector<int>{left , INT_MAX}) - special.begin() - 1;
+            ans.push_back(special[i][1] >= right);
+        }
         return ans;
     }
 };
