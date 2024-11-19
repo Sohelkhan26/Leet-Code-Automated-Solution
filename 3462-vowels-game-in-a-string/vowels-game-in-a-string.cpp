@@ -1,9 +1,8 @@
 class Solution {
 public:
     bool doesAliceWin(string s) {
-        for(char c : s)
-            if(c == 'a' or c == 'e' or c == 'i' or c == 'o' or c == 'u')
-                return true;
-        return false;
+        return any_of(s.begin() , s.end() , [&](char c){
+            return c == 'a' or c == 'e' or c == 'i' or c == 'o' or c == 'u';
+        });
     }
 };
