@@ -3,12 +3,6 @@ Maintain a window of size p. If the substring present in the window is an anagra
 */
 class Solution {
 public:
-    bool check(vector<int>& s , vector<int> &p){
-        for(int i = 0 ; i < s.size() ; i++)
-            if(s[i] != p[i])
-                return false;
-        return true;
-    }
     vector<int> findAnagrams(string s, string p) {
         vector<int> sCount(26) , pCount(26) , ans;
         for(char c : p)
@@ -18,7 +12,7 @@ public:
             sCount[s[right] - 'a']++;
             if(right - left + 1 > n)
                 sCount[s[left++] - 'a']--;
-            if(check(sCount , pCount))
+            if(sCount == pCount)
                 ans.push_back(left);
         }
         return ans;
