@@ -13,8 +13,6 @@ public:
                 minValue = abs(i) < minValue ? abs(i) : minValue;
             }
         }
-        if(negative % 2)
-            ans -= 2 * minValue; // because we added it once
-        return ans;
+        return (negative % 2) ? ans - 2 * minValue : ans;
     }
 };
