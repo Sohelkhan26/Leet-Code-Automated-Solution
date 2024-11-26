@@ -21,8 +21,8 @@ public:
                 {a, 0},                 // Empty jug 2
                 {x, b},                 // Fill jug 1
                 {a, y},                 // Fill jug 2
-                {min(x, a + b), b - (min(x, a + b) - a)}, // Pour jug 2 -> jug 1
-                {a - (min(y, a + b) - b), min(y, a + b)}  // Pour jug 1 -> jug 2
+                {min(x, a + b), b < (x - a) ? 0 : b - (x - a) }, // Pour jug 2 -> jug 1
+                {a < (y - b) ? 0 : a - (y - b) , min(y, a + b)}  // Pour jug 1 -> jug 2
             };
 
             for (auto [i, j] : temp) {
