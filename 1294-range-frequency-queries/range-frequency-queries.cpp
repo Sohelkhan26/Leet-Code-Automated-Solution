@@ -11,8 +11,9 @@ public:
     }
 };
 
-/**
- * Your RangeFreqQuery object will be instantiated and called as such:
- * RangeFreqQuery* obj = new RangeFreqQuery(arr);
- * int param_1 = obj->query(left,right,value);
- */
+/*
+upper_bound return pointer to value > target.
+lower_bound returns pointer to value >= target.
+we could have used upper_bound( , right) - lower_bound( , left)
+যেহেতু upper_bound টারগেটের চাইতে বড় ভ্যালু পয়েন্ট করবে সবসময় upper_bound( , left - 1) এ left যদি উপস্থিত থাকে তাহলেও সমস্যা নাই , না থাকলেও সমস্যা নাই। 
+*/
