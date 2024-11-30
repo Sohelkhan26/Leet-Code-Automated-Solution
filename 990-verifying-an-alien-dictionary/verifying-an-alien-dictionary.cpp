@@ -1,20 +1,33 @@
 class Solution {
 public:
     bool isAlienSorted(vector<string>& words, string order) {
-        unordered_map <char,char> mapping;
-        char a = 'a';
-        for(char c : order)
-            mapping[c] = a++;
-        for(string &word : words)
-            for(char &c : word)
-                c = mapping[c];
-        return is_sorted(words.begin() , words.end());
+        unordered_map <char , int> mapping;
+        for(int i = 0 ; i < order.size() ; i++)
+            mapping[order[i]] = i;
+        auto check = [&](string a , string b) -> bool{
+            int n = a.size() , m = b.size();
+            for(int i = 0 ; i < n and i < m ; i++)
+                if(mapping[a[i]] != mapping[b[i]])
+                    return mapping[a[i]] < mapping[b[i]];
+            return n <= m;
+        };
+        for(int i = 0 ; i < words.size() - 1 ; i++){
+            if(not check(words[i] , words[i + 1]))
+                return false;
+        }
+        return true;
     }
 };
 /*
-Build a transform mapping from order,
-Find all alien words with letters in normal order.
+If a sequence of words is sorted, then each adjacent word of the sequence must also be sorted. In the given question, while comparing if two words are sorted, we just need to compare mp[letter1] and mp[letter2] (instead of direct letter1 and letter2 that we would have done if it was normal english alphabetical ordering). Now, while checking if string a, b are lexicographically sorted, they are -
 
-For example, if we have order = "xyz..."
-We can map the word "xyz" to "abc" or "123"
+  \U0001f449 Lexicographically Sorted when -
+✦ If at first mismatch, mp[a[i]] < mp[b[i]], or
+✦ If each letters of both words match and length(a) <= length(b)
+
+  \U0001f449 Not Lexicographically Sorted when -
+✦ If at first mismatch, mp[a[i]] > mp[b[i]], or
+✦ If each letters of both words match and length(a) > length(b).
+
+With this, we can proceed to check if each adjacent words are lexicographically sorted and return true if all are found to be sorted.
 */
