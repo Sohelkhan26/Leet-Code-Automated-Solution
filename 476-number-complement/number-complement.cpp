@@ -13,5 +13,5 @@ public:
 এটার সাথে ^ mask করে leading zero eliminate করা হইছে। 
 num          = 00000101
 mask         = 11111000 (After while loop)
-~mask & ~num = 00000010
+~num ^ mask = 00000010
 */
