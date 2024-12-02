@@ -18,4 +18,5 @@ Given gas and cost of each station Determine if it's possible to visit all the g
 If possible find out the starting index.
 If we substract cost[i] from gas[i] we find out the extra gas. If After visiting all the gas station there is zero or some gas left we can visit all the gas stations otherwise return -1.
 Now we have to find out the starting point. 
+কোন স্টেশনে যদি -ve পরিমাণ গ্যাস থাকে তার মানে অইটা থেকে আমরা যাত্রা শুরু করতে পারবো না, যদি করি তাহলে গ্যাস শেষ হয়ে যাবে। কারন এই স্টেশন থেকে পরের স্টেশনে যেতে হলে আগের কোন স্টেশন থেকে extra gas লাগবে। তাই কোন স্টেশনে যদি -ve গ্যাস হয় তাহলে আমরা পরের স্টেশন থেকে যাত্রা শুরু করবো। 
 */
