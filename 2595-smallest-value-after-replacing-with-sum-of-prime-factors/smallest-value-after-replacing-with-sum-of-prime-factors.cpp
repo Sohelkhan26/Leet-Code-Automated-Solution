@@ -1,20 +1,14 @@
 class Solution {
 public:
-    bool prime(int n){
-        for(int i = 2 ; i <= sqrt(n) ; i++)
-            if(n % i == 0)
-                return false;
-        return true;
-    }
     int smallestValue(int n) {
         int prevN = -1;
         while(prevN != n){
             prevN = n;
             int sumOfPrimes = 0;
-            for(int i = 2 ; i < n ; i++)
-                while(n % i == 0){
-                    n /= i;
-                    sumOfPrimes += i;
+            for(int divisor = 2 ; divisor < n ; divisor++)
+                while(n % divisor == 0){
+                    n /= divisor;
+                    sumOfPrimes += divisor;
                 }
             if(n != 1)
                 sumOfPrimes += n;
@@ -23,3 +17,7 @@ public:
         return n;
     }
 };
+
+/*
+Just simulate the process. Replace n with it's prime factors. Do this until n remains same in the next iteration.
+*/
