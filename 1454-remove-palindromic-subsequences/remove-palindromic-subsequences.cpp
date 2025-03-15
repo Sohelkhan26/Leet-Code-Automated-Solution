@@ -7,3 +7,11 @@ public:
         return 1;
     }
 };
+
+/*
+Not bad for a easy problem.
+Read problem description carefully.
+Allowed to remove palindromic subsequence. And string consits of only 'a' and 'b'.
+If the string is already palindrome, we can remove it whole.
+Otherwise, 2 subsequence is required to remove. One with all 'a', other with all 'b'. 
+*/
