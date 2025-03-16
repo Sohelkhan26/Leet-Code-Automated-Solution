@@ -1,39 +1,27 @@
 class Solution {
 public:
-    vector <pair<char,int>> compress(string &s){
-        int cnt = 1 , n = s.size();
-        vector <pair<char,int>> S;
-        for(int i = 1 ; i < s.size() ; i++){
-            if(s[i] == s[i - 1])
-                cnt++;
-            else{
-                S.push_back({s[i - 1] , cnt});
-                cnt = 1;
-            }
-        }
-        S.push_back({s[n - 1] , cnt});
-        return S;
-    }
-    vector <pair<char,int>> a;
-    bool solve(string &c){
-        auto b = compress(c);
-        if(a.size() != b.size())
-            return false;
-        for(int i = 0 ; i < a.size() ; i++){
-            if(a[i].first != b[i].first)
-                return false;
-            else if(a[i].second < 3 and a[i].second != b[i].second)
-                return false;
-            else if(a[i].second < b[i].second)
-                return false;
-        }
-        return true;
-    }
     int expressiveWords(string s, vector<string>& words) {
-        a = compress(s);
-        int ans = 0;
-        for(string c : words)
-            ans += solve(c);
+        int ans = 0 , n = s.size();
+        for(string w : words){
+            bool ok = true;
+            int i = 0 , j = 0 , m = w.size();
+            while(i < n and j < m){
+                int cnt1 = 0 , cnt2 = 0;
+                char c = s[i];
+                while(s[i] == c)
+                    cnt1++ , i++;
+                while(w[j] == c)
+                    cnt2++ , j++;
+                if(cnt1 < 3 and cnt1 != cnt2){
+                    ok = false;
+                    break;
+                }else if(cnt1 < cnt2){
+                    ok = false;
+                    break;
+                }
+            }
+            ans += (ok and j == m and i == n);
+        }
         return ans;
     }
 };
