@@ -12,3 +12,8 @@ public:
         return ans;
     }
 };
+
+/*
+stack stores temperature in decreasing order. If a warmer temp is encountered, for every lesser temp in stack, answer is calculated.
+If for a temp warmer temp doesn't exist in the futures, it is required to put a 0 in it's place. They will be left out in the stack, and by default assigned 0.
+*/
