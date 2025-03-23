@@ -14,3 +14,6 @@ public:
         return true;
     }
 };
+/*
+Every number should be in one group. It could be the first/second...kth number in the group. Start with smallest number in every group. It's frequency is freq[i] there should be at least freq[i] times (i + j) numbers where j is in the range [0 , k].
+*/
