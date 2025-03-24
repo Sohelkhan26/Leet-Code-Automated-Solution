@@ -1,17 +1,22 @@
 class Solution {
 public:
     int countDays(int days, vector<vector<int>>& meet) {
+        int n = meet.size() , busy = 0;
         sort(meet.begin() , meet.end());
-        int n = meet.size() , off = 0 , left = meet[0][0] , right = meet[0][1];
+        vector <int> prev = meet[0];
         for(int i = 1 ; i < n ; i++){
-            if(right >= meet[i][0])
-                right = max(right , meet[i][1]);
+            if(prev[1] >= meet[i][0]) // overlap of schedules
+                prev[1] = max(meet[i][1] , prev[1]); // Think of how sorting works, value at index 0 is increasing for sure, but not at index 1
             else{
-                off += (right - left + 1);
-                left = meet[i][0] , right = meet[i][1];
+                busy += (prev[1] - prev[0] + 1);
+                prev = meet[i];
             }
         }
-        off += (right - left + 1);
-        return days - off;
+        busy += (prev[1] - prev[0] + 1);
+        return days - busy;
     }
 };
+/*
+Count the number of days there is a meeting, return days - count.
+There could be overlapping meeting schedule. Take care of that.
+*/
