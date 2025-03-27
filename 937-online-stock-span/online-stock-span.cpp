@@ -1,21 +1,21 @@
 class StockSpanner {
 public:
-    vector<int> p;
+    stack <pair<int,int>> st; // {value , span}
     StockSpanner() {
         
     }
     
     int next(int price) {
-        int n = p.size() - 1 , cnt = 1;
-        while(n >= 0 and p[n] <= price)
-            cnt++ , n--;
-        p.push_back(price);
-        return cnt;
+        int span = 1;
+        while(not st.empty() and st.top().first <= price)
+            span += st.top().second , st.pop();
+        st.push({price , span});
+        return span;
     }
 };
 
-/**
- * Your StockSpanner object will be instantiated and called as such:
- * StockSpanner* obj = new StockSpanner();
- * int param_1 = obj->next(price);
- */
+/*
+It's based on the idea:
+if a < b and c < a then c < b
+span is based on consecutive values that are less than or equal to the current element.
+*/
