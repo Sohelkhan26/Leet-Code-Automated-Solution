@@ -1,15 +1,20 @@
 class Solution {
 public:
     int minimumIndex(vector<int>& nums) {
-        unordered_map <int,int> mp;
-        int maxF = -1 , dominant = -1 , n = nums.size();
+        int dominant = nums[0] , freq = 0 , domCount = 0 , n = nums.size() , count = 0;
+        for(int i : nums){
+            if(i == dominant)
+                count++;
+            else count--;
+            if(count == 0)
+                dominant = i , count = 1;
+        }
         for(int i : nums)
-            if(++mp[i] > maxF)
-                maxF = mp[i] , dominant = i;
-        int cnt = 0;
+            if(i == dominant)
+                domCount++;
         for(int i = 0 ; i < n ; i++){
-            cnt += nums[i] == dominant;
-            if(cnt * 2 > i + 1 and (mp[nums[i]] - cnt) * 2 > (n - i - 1))
+            freq += nums[i] == dominant;
+            if(freq * 2 > i + 1 and (domCount - freq) * 2 > n - i - 1)
                 return i;
         }
         return -1;
