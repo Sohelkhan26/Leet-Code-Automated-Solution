@@ -9,7 +9,7 @@ public:
         for(int i = n - 2 ; i >= 0 ; i--)
             suff[i] = max(suff[i + 1] , nums[i]);
         for(int i = 1 ; i < n - 1 ; i++)
-            ans = max(ans , (pref[i - 1] - nums[i] * 1ll) * suff[i + 1] * 1ll);
+            ans = max(ans , 1ll * (pref[i - 1] - nums[i]) * suff[i + 1]);
         return ans;
     }
 };
