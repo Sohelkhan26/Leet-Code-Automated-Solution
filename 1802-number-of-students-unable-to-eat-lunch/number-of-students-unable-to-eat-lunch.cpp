@@ -1,25 +1,19 @@
 class Solution {
 public:
     int countStudents(vector<int>& stud , vector<int>& sand) {
-        queue <int> q(stud.begin() , stud.end());
-        reverse(sand.begin() , sand.end());
-        while(not q.empty()){
-            bool eat = false;
-            for(int i = 0 ; i < q.size() ; i++){
-                if(q.front() == sand.back())
-                    sand.pop_back() , q.pop() , eat = true;
-                else{
-                    int t = q.front(); q.pop();
-                    q.push(t);
-                }
-            }
-            if(not eat)
-                return q.size();
+        int hungry = stud.size() , count[] = {0 , 0};
+        for(int &i : stud)
+            count[i]++;
+        for(int i : sand){
+            if(count[i])
+                count[i]-- , hungry--;
+            else return hungry;
         }
         return 0;
     }
 };
 
 /*
-Simulate the process, at least one student should eat from a given queue otherwise infinite loop thus anyone else won't be able to eat.
+one observation is that order of students don't even matter. If they can't get their desired sandwich they can always go back of the line.
+Only case students can't eat is there is no preferred sandwich left for someone. Then they are stuck and others behind that student are also stuck.
 */
