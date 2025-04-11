@@ -3,9 +3,7 @@ public:
     int countSymmetricIntegers(int low, int high) {
         int ans = 0;
         for(int i = low ; i <= high ; i++){
-            int digit = 0 , temp = i;
-            while(temp > 0)
-                temp /= 10 , digit++;
+            int digit = ceil(log10(i));
             if(digit % 2)
                 continue;
             int sum = 0 , j = i , k = 0;
