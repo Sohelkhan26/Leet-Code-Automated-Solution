@@ -18,3 +18,9 @@ public:
         return ans;
     }
 };
+
+/*
+Straightforward do as the problem description says.
+Every Uppercase char in queries[i] should be present in the "pattern".
+And every character of "pattern" should be present in queries[i].
+*/
