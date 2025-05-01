@@ -1,49 +1,31 @@
 class Solution {
 public:
-    vector <pair<int,int>>  dir = {{-1 , 0} , {1 , 0} , {0 , -1} , {0 , 1}};
-    string alphabetBoardPath(string t) {
-        vector <string> board = {"abcde", "fghij", "klmno", "pqrst", "uvwxy", "z"};
-        int len = 5 , i = 0 , j = 0;
-        auto bfs = [&](char target) -> string{
-            queue <pair<pair<int,int> , string>> q;
-            q.push({{i , j} , ""});
-            auto valid = [&](int x , int y){
-                return min(x , y) >= 0 and x < len and y < len;
-            };
-            set <pair<int,int>> vis = {{i , j}};
-            while(not q.empty()){
-                int n = q.size();
-                while(n--){
-                    auto [c , path] = q.front() ; q.pop();
-                    int x = c.first , y = c.second;
-                    if(board[x][y] == target){
-                        i = x , j = y;
-                        return path;
-                    }
-                    for(int i = 0 ; i < 4 ; i++){
-                        int newX = x + dir[i].first , newY = y + dir[i].second;
-                        if((newX == 5 and newY == 0) or valid(newX , newY)){
-                            if(vis.contains({newX , newY}))continue;
-                            vis.insert({newX , newY});
-                            string temp = path;
-                            if(i == 0)
-                                path += 'U';
-                            else if(i == 1)
-                                path += 'D';
-                            else if(i == 2)
-                                path += 'L';
-                            else path += 'R';
-                            q.push({{newX , newY} , path});
-                            path = temp;
-                        }
-                    }
-                }
-            }
-            return "";
-        };
+    string alphabetBoardPath(string target) {
+        unordered_map <char,pair<int,int>> pos;
+        for(int i = 0 ; i < 26 ; i++)
+            pos[i + 'a'] = {i / 5 , i % 5};
+        int x = 0 , y = 0;
         string ans;
-        for(char &c : t)
-            ans += (bfs(c) + string(1 , '!'));
+        for(char &c : target){
+            auto d = pos[c];
+            int newX = d.first , newY = d.second;
+            if(pair<int,int> {x , y} == pos['z'] and c != 'z')
+                ans.append("U") , x--; // prev = 'z' so go up.
+            if(y < newY)ans += string((newY - y) , 'R');
+            if(y > newY)ans += string((y - newY) , 'L');
+            if(x < newX)ans += string((newX - x) , 'D');
+            if(x > newX)ans += string((x - newX) , 'U');
+            ans.append("!");
+            x = newX , y = newY;
+        }
         return ans;
     }
 };
+
+/*
+Harder approach is BFS.
+It asks for min moves, not necessarily BFS is required for that.
+Manhattan distance is the shortest path. i.e : dx , dy
+Only one edge case: 'z'
+If we are currently at 'z' we can't move left or right or down. Only move is up. So, if prev was 'z' and now we have to go to other character than 'z' we must go up. 
+*/
