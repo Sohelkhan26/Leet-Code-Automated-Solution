@@ -14,7 +14,11 @@ public:
 Think like this: There n items, nums[i] represents the count of i'th item. 
 Place them in such manner so that no adjacent items is same. Longest such sequence is the desired answer.
 Say there are m indices to place the items. m = total = sum(nums) 
-Be greedy, highest count item is placed at odd or even index and other items should be in between. If one item has high frequency , > m / 2 then some of them are bound to be adjacent. There sum of other items is "rest" , then there are "rest + 1" holes that can be filled by the highest frequency item. Highest frequencey item can be placed in between and each item is counted so 2 * rest(because of problem statement).
+Be greedy, highest count item is placed at odd or even index and other items should be in between. If one item has high frequency , > m / 2 then some of them are bound to be adjacent. The sum of other items is "rest" , then there are "rest + 1" holes that can be filled by the highest frequency item. Highest frequencey item can be placed in between and each item is counted so 2 * rest(because of problem statement).
+To ensure efficient usage of highest frequency item , it starts and ends with that item.
+nums = [5 , 2 , 1]
+5 2 5 2 5 1 5 5
+rest = 3 and has 4 holes, 5 and 2 both is counted so 2 * rest.
 
-If there is no such high frequency item, then all of them can be placed non-adjacently beause there is no restriction on the length "m".
+If there is no such high frequency item, then all of them can be placed non-adjacently beause there is no restriction on the length "m". i.e : m can be even or odd. Or you can think it like this: m itself is the length of the array and "m = sum(nums)"
 */
