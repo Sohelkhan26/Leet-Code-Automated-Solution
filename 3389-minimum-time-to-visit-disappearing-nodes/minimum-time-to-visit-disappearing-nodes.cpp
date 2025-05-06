@@ -31,3 +31,15 @@ public:
         return dist;
     }
 };
+
+/*
+undirected edge, i'th node disappears at disappear[i], graph could be diconnected and have multiple edge.
+Edge all positive. Dijkstra? Simple dijkstra if distance < disappear[i] assign -1?
+What if multiple edges have same time? There is a time limit to each node. After that it can't be reached.
+Dijkstra with slight modification. If there are enough multiple edge it can cause TLE.
+So add : if(distance > dist[curr])
+                    continue; // Although it is a standard practice in all dijstra related problem but they might get accepted,
+                    // but this one won't.
+To handle time limit don't go to a node if it has already disappeared.
+how to Determine? If time taken to reach a node is >= disappear[node] then don't visit or rather can't visit.
+*/
