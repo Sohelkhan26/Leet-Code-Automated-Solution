@@ -15,5 +15,7 @@ nums is a permutation [1 .. n]
 every number less than n will have up-to MSB(n). Smaller number won't have a set bit that exceeds the MSB of n. 
 Every bit contributes some, pow(2 , x) where x is the position of the bit. If a same bit contribute twice(in two diff number) then overall contribution will be 0.
 So, xoring max-number "n" with any other number won't result in number greater than n.
+All numbers from 1 to n can be represented with up to k bits.
 
+XOR of 3 numbers (triplets) allows construction of all combinations of those bits.
 */
