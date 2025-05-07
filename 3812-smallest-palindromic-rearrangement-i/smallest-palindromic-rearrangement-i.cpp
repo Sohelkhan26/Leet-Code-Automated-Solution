@@ -1,19 +1,15 @@
 class Solution {
 public:
     string smallestPalindrome(string s) {
-        map <char,int> freq;
-        for(int i = 0 ; i < s.size() / 2 ; i++)
-            freq[s[i]]++;
-        int filled = 0;
-        for(auto &[c , f] : freq){
-            fill(s.begin() + filled , s.begin() + filled + f , c); // fill from left
-            fill(s.rbegin() + filled , s.rbegin() + filled + f , c); // fill from right
-            filled += f;
-        }
-        return s;
+        int n = s.size();
+        if(n <= 2)  
+            return s;
+        string ans = s.substr(0 , n / 2);
+        sort(ans.begin() , ans.end());
+        string revAns = ans;
+        if(n % 2) // insert the middle char. Don't do it before assigning reverse part.
+            ans.push_back(s[n / 2]);
+        reverse(revAns.begin() , revAns.end());
+        return ans + revAns;
     }
 };
-
-/*
-If you are wondering what happens to odd length palindrome, The middle character gets filled twice by the came character. So, don't sweat.
-*/
