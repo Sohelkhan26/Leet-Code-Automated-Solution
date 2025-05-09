@@ -28,4 +28,28 @@ For every shift in the above range, we can get a new hidden sequence. So, total 
 The highest peak of the graph can be between (upper - max) so count += (upper - max) and deepest valley can be between (min - lower) so count += (min - lower) and +1 as one of the value got subtracted twice
 
 ans = (upper - max) + (min - lower) + 1
+
+✅ Fixing x = 0: Why It's Safe
+Suppose you assume x = 0 (i.e., the first element of the hidden array is 0).
+
+Then your hidden array becomes just the prefix sum array:
+
+hidden = [0, d1, d1 + d2, ..., total sum]
+Let’s call this base sequence S.
+
+Now, any actual valid hidden array is just a shifted version of S:
+
+hidden_actual[i] = S[i] + x
+So the shape of the array is fixed — only the vertical shift (x) varies.
+To ensure the shifted array lies within [lower, upper], you want:
+lower ≤ x + minVal
+upper ≥ x + maxVal
+
+Solving:
+
+x ≥ lower - minVal
+x ≤ upper - maxVal
+
+So x must lie in this range: [lower - minVal, upper - maxVal]
+And total valid x values = upper - maxVal - (lower - minVal) + 1
 */
