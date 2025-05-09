@@ -27,3 +27,10 @@ public:
         return solve(1 , nums , vis);
     }   
 };
+
+/*
+i'th operation yields i * gcd(n1 , n2)
+For every i'th operation any pair can be chosen and we have to take the pair that yields max answer. So, for every i'th operation, fix a pair and solve the sub-problem, take the max answer.
+And to keep track of which pair is chosen, use bitmask. And to farther improve TC, store answer to every subproblem. If n is length of nums , total possible states of bitmask is 2 ^ n(for every number two choice, include or don't). So, 2 ^ 14 states.
+For every State solve function uses two loops to fix the first pair. TC = O(2 ^ n * n ^ 2)
+*/
