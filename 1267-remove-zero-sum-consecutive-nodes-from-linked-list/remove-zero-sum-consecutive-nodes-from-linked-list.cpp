@@ -7,17 +7,13 @@ public:
         ListNode *curr = head;
         while(curr){
             sum += curr -> val;
-            if(prev.count(sum)){
-                ListNode* start = prev[sum] -> next;
-                int tempSum = sum;
-                // Clean up intermediate prefix sums
-                while (start != curr) {
-                    tempSum += start -> val;
-                    prev.erase(tempSum);
-                    start = start -> next;
-                }
-                prev[sum] -> next = curr -> next;
-            }else prev[sum] = curr;
+            prev[sum] = curr;
+            curr = curr -> next;
+        }
+        curr = head , sum = 0;
+        while(curr){
+            sum += curr -> val;
+            curr -> next = prev[sum] -> next;
             curr = curr -> next;
         }
         return head -> next;
@@ -25,7 +21,6 @@ public:
 };
 
 /*
-When a same prefixSum was previously seen, that means intermediate subarray has sum = 0.
-So, all nodes between prev[sum] and curr need to be deleted.
-prev[sum] -> next = curr -> next is enough, but as these don't exist, their prefix sum should not exist too. So they need to be removed from map too.
+Follows a two loop approach. Stores the last occurance of sum.
+Again traversing from left to right, if sum exist in the map, then the intermediate subarray needs to be removed. Doesn't require handling intermediate prefix sum erasure from map.
 */
