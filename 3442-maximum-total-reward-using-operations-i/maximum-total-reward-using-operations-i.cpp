@@ -9,8 +9,7 @@ public:
                 if(r > prev)
                     extendAns.insert(r + prev);
             }
-            for(const int &i : extendAns)
-                ans.insert(i);
+            ans.insert(extendAns.begin() , extendAns.end());
         }
         return *max_element(ans.begin() , ans.end());
     }
