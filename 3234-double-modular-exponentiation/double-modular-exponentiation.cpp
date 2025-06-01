@@ -3,10 +3,11 @@ public:
     int maxPow(int a , int b , int mod){
         if(b == 0)
             return 1;
-        int ans = maxPow(a , b / 2 , mod) % mod;
+        int ans = maxPow(a , b / 2 , mod);
+        ans = (ans * ans) % mod;
         if(b % 2)
-            return (1ll * ans * ans * a) % mod;
-        else return (1ll * ans * ans) % mod;
+            ans = (ans * a) % mod;
+        return ans;
     } 
     vector<int> getGoodIndices(vector<vector<int>>& variables, int target) {
         vector <int> ans;
