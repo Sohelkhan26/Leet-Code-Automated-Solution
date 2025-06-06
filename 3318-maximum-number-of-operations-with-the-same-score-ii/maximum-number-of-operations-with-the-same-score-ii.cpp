@@ -19,7 +19,10 @@ public:
         int n = nums.size();
         dp.resize(n , vector<int> (n , -1));
         int ans = solve(nums[0] + nums[1] , 2 , n - 1 , nums);
-        ans = max({ans , solve(nums[n - 1] + nums[n - 2] , 0 , n - 3 , nums) , solve(nums[0] + nums[n - 1] , 1 , n - 2 , nums)});
+        dp.resize(n , vector<int> (n , -1));
+        ans = max(ans , solve(nums[n - 1] + nums[n - 2] , 0 , n - 3 , nums));
+        dp.resize(n , vector<int> (n , -1));
+        ans = max(ans , solve(nums[0] + nums[n - 1] , 1 , n - 2 , nums));
         return ans + 1;
     }
 };
@@ -36,4 +39,6 @@ Fix the first operaton out of 3 and simulate the rest ?
 n could be odd ? No TC like this.
 Simulation needs memoization, cause there could be at most 3 choice.
 DP state ? 3 (i , j , score) ? or 2(i , j) ? score is constant. So, just use i , j.
+Even though we need 3 dp or reset the dp array each time, there is no TC to check that.
+WE can pass all TC with one DP array. But use 3 dp array.
 */
