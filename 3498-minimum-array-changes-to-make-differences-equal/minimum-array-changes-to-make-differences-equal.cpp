@@ -12,9 +12,8 @@ public:
             line[threshold + 1] += 1; // diff < X <= threshold , need 1 change
             // X > threshold need 2 change , which we don't need.
         } 
-        for(auto &[X , cnt] : line){
-            cout << X << ' ' << cnt << endl;
-            change += cnt;
+        for(int x = 0 ; x <= k ; x++){
+            change += line[x];
             ans = min(ans , change);
         }
         return ans;
