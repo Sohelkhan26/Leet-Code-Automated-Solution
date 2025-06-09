@@ -1,22 +1,21 @@
 class Solution {
 public:
     int minChanges(vector<int>& nums, int k) {
-        int n = nums.size() , ans = INT_MAX;    
-        unordered_map <int,int> freq;
-        vector <int> v;
+        int n = nums.size() , ans = INT_MAX , change = 0; 
+        map <int,int> line;
         for(int i = 0 ; i < n / 2 ; i++){
-            int a = nums[i] , b = nums[n - i - 1] , diff = abs(a - b);
-            freq[diff]++;
+            int a = nums[i] , b = nums[n - i - 1] , diff = abs(a - b); 
             int threshold = max({max(a , b) , abs(a - k) , abs(k - b)});
-            v.push_back(threshold); 
+            line[0] += 1; // 0 <= X < diff = need 1 change
+            line[diff] -= 1; // 0 <= X < diff = need 1 change
+            line[diff + 1] += 1; // diff < X <= threshold , need 1 change
+            line[threshold + 1] += 1; // diff < X <= threshold , need 1 change
+            // X > threshold need 2 change , which we don't need.
         } 
-        sort(v.begin() , v.end());
-        n /= 2;
-        for(int x = 0 ; x <= k ; x++){
-            
-            int one = n - freq[x]; // freq[x] is original diff without changing any element , n is pair count
-            int two = lower_bound(v.begin() , v.end() , x) - v.begin(); // maxDiff < x will require one more change in element.
-            ans = min(ans , one + two);
+        for(auto &[X , cnt] : line){
+            cout << X << ' ' << cnt << endl;
+            change += cnt;
+            ans = min(ans , change);
         }
         return ans;
     }
