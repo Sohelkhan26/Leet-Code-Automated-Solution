@@ -1,14 +1,18 @@
 class Solution {
 public:
     int countWays(vector<int>& nums) {
-        int n = nums.size() , ans = 0;
-        nums.push_back(INT_MAX); // to handle out of bounds.
-        sort(nums.begin() , nums.end());
-        for(int group = 0 ; group < n ; group++)
-            if(group + 1 > nums[group] and group + 1 < nums[group + 1])
+        int n = nums.size();
+        vector<int> freq(n+1, 0);
+        for (int num : nums) 
+            freq[num]++;
+
+        int less = 0, ans = 0;
+        for (int group = 0; group <= n; group++) {
+            less += freq[group];
+            if (freq[group] == 0 && less == group) {
                 ans++;
-        if(nums[0] != 0)
-            ans++;
+            }
+        }
         return ans;
     }
 };
