@@ -25,5 +25,11 @@ public:
 };
 
 /*
-
+Obviously we can't try all permutations, we either find mathematically or use memoization.
+Good DP problem. Identifying it as a DP problem could be hard.
+For each number we can include it in our permutation if 
+it's the start of the combination
+prevNum % currNum or
+currNum % prevNum
+If we can include numbers following this condition and can include all the numbers we found a valid permutation.
 */
