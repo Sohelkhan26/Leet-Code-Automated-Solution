@@ -1,15 +1,18 @@
 class Solution {
 public:
     long long maximumTripletValue(vector<int>& nums) {
-        long long ans = 0 , n = nums.size();
-        vector <int> pref(n) , suff(n);
-        pref[0] = nums[0] , suff[n - 1] = nums[n - 1];
-        for(int i = 1 ; i < n ; i++)
-            pref[i] = max(pref[i - 1] , nums[i]);
+        int left = nums[0] , n = nums.size();
+        long long ans = -1;
+        vector <int> right(n);
+        right[n - 1] = nums[n - 1];
+
         for(int i = n - 2 ; i >= 0 ; i--)
-            suff[i] = max(suff[i + 1] , nums[i]);
-        for(int i = 1 ; i < n - 1 ; i++)
-            ans = max(ans , 1ll * (pref[i - 1] - nums[i]) * suff[i + 1]);
-        return ans;
+            right[i] = max(right[i + 1] , nums[i]);
+
+        for(int j = 1 ; j < n - 1 ; j++){
+            ans = max(ans , 1ll * (left - nums[j]) * right[j + 1]);
+            left = max(left , nums[j]);
+        }
+        return max(ans , 0ll);
     }
 };
