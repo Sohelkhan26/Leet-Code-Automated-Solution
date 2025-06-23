@@ -8,28 +8,27 @@ public:
         return (nums[i] > nums[i - 1]) and (nums[i] > nums[i + 1]);
     }
 
-    void build(int root , int low, int high){
-        if (low == high){
+    void build(int root , int low , int high){
+        if(low == high){
             tree[root] = isPeak(low);
             return;
         }
         int mid = low + (high - low) / 2;
-        build(2 * root + 1, low, mid);
-        build(2 * root + 2, mid + 1, high);
-        tree[root] = (tree[2 * root + 1] + tree[2 * root + 2]);
+        build(2 * root + 1 , low , mid);
+        build(2 * root + 2 , mid + 1 , high);
+        tree[root] = tree[2 * root + 1] + tree[2 * root + 2];
     }
 
-    void update(int root, int low, int high, int i){ 
-        if (low == high){
+    void update(int root , int low , int high , int i){
+        if(low == high){
             tree[root] = isPeak(low);
             return;
         }
         int mid = low + (high - low) / 2;
-        if (i <= mid)
-            update(2 * root + 1, low, mid, i);
-        else
-            update(2 * root + 2, mid + 1, high, i);
-        tree[root] = (tree[2 * root + 1] + tree[2 * root + 2]);
+        if(i <= mid)
+            update(2 * root + 1 , low , mid , i);
+        else update(2 * root + 2 , mid + 1 , high , i);
+        tree[root] = tree[2 * root + 1] + tree[2 * root + 2];
     }
     int query(int root , int low , int high , int qL , int qR){ 
         if(qR < low or qL > high)
@@ -39,7 +38,7 @@ public:
         int mid = low + (high - low) / 2;
         int l = query(2 * root + 1 , low , mid , qL , qR);
         int r = query(2 * root + 2 , mid + 1 , high , qL , qR);
-        return (l + r);
+        return l + r;
     }
     vector<int> countOfPeaks(vector<int>& a, vector<vector<int>>& queries) {
         n = a.size();
