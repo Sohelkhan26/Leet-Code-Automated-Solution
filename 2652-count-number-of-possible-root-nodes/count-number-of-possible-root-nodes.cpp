@@ -7,7 +7,7 @@ public:
     int dfs1(int root , int par){
         for(int &child : adj[root]){
             if(child == par)
-                continue;
+                continue;               // root is parent of child in guess
             count[root] += (parent.contains({root , child})) + dfs1(child , root);
         }
         return count[root];
@@ -17,7 +17,7 @@ public:
             ans++; 
         for(int &child : adj[root]){
             if(child == par)
-                continue;
+                continue; // root is parent of child in guess // child is also parent of root in guess
             dfs2(child , root , correct - parent.contains({root , child}) + parent.contains({child , root}));
         }
     }
@@ -52,4 +52,14 @@ If a node is the root of the tree what changes? What does it take to be the root
 
 From the example, maybe fix a root and find how many guesses are correct , if >= k , then that is a possible root?
 
+count[root] -> number of true guess if tree is rooted at 'root'
+Find this recursively.
+Now, we have to find count[i] for all nodes(making them root) using brute force(using the same function)
+Or we can do this in O(n) by re-rooting.
+
+Find correct guess for any node, let's call it 'root'
+Start another DFS
+For it's child, think of that as root of tree
+if child is parent of 'root' in guess, correct guess will increase.
+if 'root' is parent of child in guess, correct guess will decrease.
 */
