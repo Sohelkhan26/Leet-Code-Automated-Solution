@@ -14,7 +14,7 @@ public:
                 curr -> child[s[i]] = new Node();
             curr = curr -> child[s[i]];
         }
-        freq[curr] = n + 1;
+        freq[curr] = n + 1; // extra one for #
     }
     int minimumLengthEncoding(vector<string>& words) {
         root = new Node();
@@ -33,4 +33,8 @@ Too much details. Try to place a string as another strings suffix.
 return min number of strings to represent words
 plus number of # -> N
 Trie? insert every word reversed?
+It actually works.
+only add word[i].size() + 1 if it is not suffix of any other word.
+How to check? Twick the Trie a little bit. 
+keep a map instead of array and check if it's empty()(no character after it)
 */
