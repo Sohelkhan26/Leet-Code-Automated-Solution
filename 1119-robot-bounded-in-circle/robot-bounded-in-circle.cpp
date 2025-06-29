@@ -10,7 +10,7 @@ public:
             else
                 i--;
             if(i < 0)
-                i = 3;
+                i += 4;
         }
         return (x == 0 and y == 0) or i > 0;
     }
