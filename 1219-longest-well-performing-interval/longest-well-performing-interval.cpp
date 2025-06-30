@@ -1,16 +1,18 @@
 class Solution {
 public:
     int longestWPI(vector<int>& nums) {
-        int n = nums.size() , ans = 0;
-        vector <int> pref = {nums[0] > 8 ? 1 : -1};
-        for(int i = 1 ; i < n ; i++)
-            pref.push_back(pref.back() + (nums[i] > 8 ? 1 : -1)); 
+        int n = nums.size() , ans = 0 , prefix = 0;
+        unordered_map <int,int> seen;
         for(int i = 0 ; i < n ; i++){
-            for(int j = 0 ; j < n ; j++){
-                if(pref[j] - (i > 0 ? pref[i - 1] : 0) > 0)
-                    ans = max(ans , j - i + 1);
+            prefix += (nums[i] > 8 ? 1 : -1);
+            if(prefix > 0)
+                ans = i + 1;
+            else{
+                if(seen.contains(prefix - 1))
+                    ans = max(ans , i - seen[prefix - 1]);
+                seen.insert({prefix  , i}); // only store the first appearance. [8,10,6,16,5]
             }
-        } 
+        }
         return ans;
     }
 };
@@ -24,4 +26,7 @@ Yeah, typical one don't work.
 Kadene won't work too. Prefix sum sliding window maybe?
 Prefix sum with two loops should pass?
 Indeed passed cause of low constraints. But barely. 2.2 seconds
+
+This solution came to my mind, but i thought for a prefix, simply 
+checking prefix - 1 is not enough. We have to check prefix - i(i in range [1..prefix - 1]) but, that is not the case. Prefix - x (x > 2) will result in shorter good interval. because we have to pass (prefix - 1) in the process.
 */
