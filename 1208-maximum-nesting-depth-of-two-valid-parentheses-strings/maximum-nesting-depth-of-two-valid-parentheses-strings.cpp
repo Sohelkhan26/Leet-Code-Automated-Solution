@@ -8,7 +8,7 @@ public:
             if(c == '(')
                 ans[i] = ++group % 2;
             else // ')'
-                ans[i] = group-- % 2; // should match previous '(' bracket's group
+                ans[i] = group-- % 2; // should match previous '(' bracket's group so, postfix --
         }
         return ans;
     }
