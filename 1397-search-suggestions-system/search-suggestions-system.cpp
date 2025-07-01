@@ -1,23 +1,21 @@
 class Solution {
 public:
     vector<vector<string>> suggestedProducts(vector<string>& products, string searchWord) {
-        unordered_map <string, set<string>> all;
-        for(string &s : products){
-            string temp;
-            for(char &c : s){
-                temp.push_back(c);
-                all[temp].insert(s);
-            }
-        }
+        auto it = products.begin();
+        sort(it , products.end());
         vector<vector<string>> ans;
-        string temp;
+        string prefix;
         for(char &c : searchWord){
-            temp.push_back(c);
-            vector <string> curr; 
-            auto it = all[temp].begin();
-            for(int i = 0 ; i < 3 and it != all[temp].end() ; it++ , i++)
-                curr.push_back(*it);
-            ans.push_back(move(curr));
+            prefix.push_back(c);
+            it = lower_bound(it , products.end() , prefix);
+            vector <string> suggested;
+            for(int i = 0 ; it + i != products.end() and i < 3 ; i++){
+                string &s = *(it + i);
+                if(not s.starts_with(prefix))
+                    break;
+                suggested.push_back(s);
+            }
+            ans.push_back(move(suggested));
         }
         return ans;
     }
