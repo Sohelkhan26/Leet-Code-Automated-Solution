@@ -1,13 +1,12 @@
 class Solution {
 public:
     vector<vector<string>> suggestedProducts(vector<string>& products, string searchWord) {
-        auto it = products.begin();
-        sort(it , products.end());
+        sort(products.begin() , products.end());
         vector<vector<string>> ans;
         string prefix;
         for(char &c : searchWord){
             prefix.push_back(c);
-            it = lower_bound(it , products.end() , prefix);
+            auto it  = lower_bound(products.begin() , products.end() , prefix);
             vector <string> suggested;
             for(int i = 0 ; it + i != products.end() and i < 3 ; i++){
                 string &s = *(it + i);
