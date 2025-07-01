@@ -10,7 +10,7 @@ public:
             suffix = (suffix + (s[right - i - 1] - 'a' + 1) * power) % mod; // hash = hash + char * power or vice versa
             power = (power * base) % mod;
             if(prefix == suffix)
-                if(s.substr(left , i + 1) == s.substr(right - i - 1 , i + 1))
+                // if(s.substr(left , i + 1) == s.substr(right - i - 1 , i + 1))
                     return 2 + solve(left + i + 1 , right - i - 1 , s);
         }
         return 1;
