@@ -9,25 +9,25 @@ public:
             for(int u : preferences[x]){
                 if(u == y)
                     return false;
-                bool ok = false;
+                bool unhappy = false;
                 for(int v : preferences[u]){
                     if(v == pairing[u])
                         break;
                     if(v == x)
-                        ok = true;
+                        unhappy = true;
                 }
-                if(ok)
+                if(unhappy)
                     return true;
             }
             return false;
         };
-        int unhappy = 0;
+        int ans = 0;
         for(auto &it : pairs){
             int x = it[0] , y = it[1];
-            unhappy += find(x , y);
-            unhappy += find(y , x);
+            ans += find(x , y);
+            ans += find(y , x);
         }
-        return unhappy;
+        return ans;
     }
 };
 
@@ -35,4 +35,11 @@ public:
 Such a trick problem. 
 Preference of every person is given.
 A person 'x' is unhappy if there is a person 'u' who is preferred over 'x's current pairing and that person 'u' also prefers 'x' over his current pairing.
+
+Constraint is small. Brute force will pass.
+For each pairs [x,y], 
+traverse over 'x's preferences, before reaching 'y'
+Now for each preference 'u' , traverse 'u's preferance list, if
+'x' is before 'u's pairing(the person 'u' is paired with), then 'x' is unhappy.
+'u' also prefers 'x' over his current pairing.
 */
