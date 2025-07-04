@@ -36,4 +36,12 @@ before fav day, fav candy eaten, possible when? d > pref[i] - 1 even eating 1 ca
 pref[i - 1] candy should be eaten in the first d - 1 day
 without breaking limit. if limit breaks return false????
 
+
+TL; DR:
+Two possibility for false:
+1. Favourite candy depleted before favorite day. When?
+Even after eating 1 candy per day, we can't make it until fav day
+i.e : day > pref[i] - 1
+2. To eat favorite candy at all, we have to eat all (i - 1) candies without breaking the limit. All i - 1 candy = pref[i - 1]
+To eat this much candy we need at least this limit = pref[i - 1] / day
 */
