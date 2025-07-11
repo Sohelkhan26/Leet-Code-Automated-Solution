@@ -12,7 +12,7 @@ public:
         int ans = 0;
         for(int i = 0 ; i < n ; i++){
             // count[i] is current trailing zero count, but to make valid matrix, i'th row should have n - 1 - i trialing zero
-            if(count[i] >= n - 1 - i)
+            if(count[i] >= n - 1 - i) // no need to swap, already have required zero
                 continue;
             int j = i + 1;
             while(j < n and count[j] < n - i - 1)
@@ -31,4 +31,5 @@ given square binary grid return minimum swap to make it valid
 valid matrix is the one which have all zero above the main diagonal
 main diagonal start at 0,0 and end at n - 1 , n - 1
 Main observation: Each row must have at least n - i - 1 trailing zero, any more than that is good but less is not acceptable.
+This solution is greedy based. And I am afraid of this kind of problem. It's hard to differentiate. First row must have most number of trailing zeroes. Requirement decreases at each row. For each row, we replace it with the first row that satisfy the condition. 
 */
