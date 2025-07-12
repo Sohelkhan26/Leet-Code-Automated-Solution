@@ -1,38 +1,28 @@
 class CBTInserter {
 public:
-    TreeNode* root;
+    vector<TreeNode*> tree;
     CBTInserter(TreeNode* root) {
-        this -> root = root;
+        tree.push_back(root);
+        for(int i = 0 ; i < tree.size() ; i++){
+            if(tree[i] -> left)
+                tree.push_back(tree[i] -> left);
+            if(tree[i] -> right)
+                tree.push_back(tree[i] -> right);
+        }
     }
     
-    int insert(int val){
-        queue <TreeNode*> q;
-        q.push(root);
+    int insert(int val) {
+        int n = tree.size();
         TreeNode* node = new TreeNode(val);
-        while(not q.empty()){
-            TreeNode* curr = q.front(); q.pop();
-            if(curr -> left)
-                q.push(curr -> left);
-            else{
-                curr -> left = node;
-                return curr -> val;
-            }
-            if(curr -> right)
-                q.push(curr -> right);
-            else{
-                curr -> right = node;
-                return curr -> val;
-            }
-        }
-        return -1;
+        tree.push_back(node);
+        if(n % 2)
+            tree[(n - 1) / 2] -> left = node;
+        else 
+            tree[(n - 1) / 2] -> right = node;
+        return tree[(n - 1) / 2] -> val; // parent node
     }
     
     TreeNode* get_root() {
-        return root;
+        return tree[0];
     }
 };
-
-/*
-Tree reorganize after each insertion? no
-why get_root() if root don't change? no idea it returns same every time
-*/
