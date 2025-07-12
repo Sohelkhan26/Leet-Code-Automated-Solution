@@ -8,8 +8,8 @@ public:
             return min(x , y) >= 0 and x < n and y < m;
         };
         q.push({0 , 0 , k});
-        set <array<int,3>> vis;
-        vis.insert({0 , 0 , k});
+        vector<vector<vector<bool>>> vis(n , vector<vector<bool>> (m , vector<bool> (k + 1)));
+        vis[0][0][k] = true;
 
         while(not q.empty()){
             int len = q.size();
@@ -24,10 +24,10 @@ public:
                     int newX = x + dir[k] , newY = y + dir[k + 1];
                     if(valid(newX , newY)){
                         int newK = K - (grid[newX][newY] == 1);
-                        if(newK < 0 or vis.contains({newX , newY , newK}))
+                        if(newK < 0 or vis[newX][newY][newK])
                             continue;
                         q.push({newX , newY , newK});
-                        vis.insert({newX , newY , newK});
+                        vis[newX][newY][newK] = true;
                     }
                 }
             }
