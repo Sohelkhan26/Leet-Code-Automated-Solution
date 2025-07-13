@@ -29,3 +29,13 @@ public:
         return -1;
     }
 };
+
+/*
+Given n nodes and edges. edge = [source , destination , start , end]
+Edge can be visited if start <= time <= end
+Graph could contain cycle???
+start , end <= 1e9 , so can't simulate time increasing one by one.
+Out of all neighbors, they can be visited by current Time + 1 , or start Time + 1 , extra 1 for traversing the edge . That time must be <= end
+To avoid visiting one node multiple times, keep a distance array.
+Or keeping parent could work too? Nah, it don't work.
+*/
