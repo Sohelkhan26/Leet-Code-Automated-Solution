@@ -1,7 +1,9 @@
 class Solution {
 public:
     int minTime(int n, vector<vector<int>>& edges, int k) {
-        int component = n , m = edges.size();
+        int m = edges.size();
+        if(m == 0)
+            return 0;
         sort(edges.begin() , edges.end() , [&](auto &a , auto &b){
             return a[2] < b[2];
         });
@@ -18,12 +20,21 @@ public:
             parent[a] = b;
             return true;
         };
-        for(int i = m - 1 ; i >= 0 ; i--){
-            component -= (Unite(edges[i][0] , edges[i][1]));
-            if(component < k)
-                return edges[i][2];
+        int low = 0 , high = edges[m - 1][2] , mid , ans = 0;
+        while(low <= high){
+            mid = low + (high - low) / 2;
+            int component = n;
+            parent.assign(n , -1);
+            for(int i = m - 1 ; i >= 0 ; i--){
+                if(edges[i][2] <= mid)
+                    break;
+                component -= (Unite(edges[i][0] , edges[i][1]));
+            }
+            if(component >= k)
+                ans = mid , high = mid - 1;
+            else low = mid + 1;
         }
-        return 0;
+        return ans;
     }
 };
 
