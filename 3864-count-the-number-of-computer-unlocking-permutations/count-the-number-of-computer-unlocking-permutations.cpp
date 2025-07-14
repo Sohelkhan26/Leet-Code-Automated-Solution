@@ -10,3 +10,12 @@ public:
         return ans;
     }
 };
+
+/*
+It's a trick question. Don't think of it like a graph problem to clear i'th computer we should come from j'th comuter such that j < i and complexity[j] < complexity[i].
+To open i'th computer we have must have an earlier j'th computer whose complexity is less than i'th computer.
+I thought if 1,14,3
+if 14 is unlocked we can't then unlock 3 because 14 > 3
+But we can unlock 3 cause we have 1 , we don't have to follow 14 -> 3
+we can go from earlier computer too. 1 -> 3
+*/
