@@ -16,7 +16,7 @@ public:
                 if(classroom[i][j] == 'S')
                     sI = i , sJ = j;
                 if(classroom[i][j] == 'L'){
-                    group[{i , j}] = g++;
+                    group[{i , j}] = g++; // give each litter a unique id for masking
                     litter++;
                 }
             }
@@ -53,3 +53,9 @@ public:
         return -1;
     }
 };
+
+/*
+Very good problem. Never seen anything like this.
+After seeing code it may not seem complicated. But it's hard to figure out BFS will bitmasking to track visited state solves the problem.
+Main trick to apply BFS is same cells can be visited multiple times.  
+*/
