@@ -3,8 +3,8 @@ public:
     struct Node{
         bool isEnd = false;
         Node* child[26] = {};
-        int index = -1;
-        vector<int> palindromes;
+        int index = -1; // ending of word. int instead of bool to avoid pairing with itself. to account for i != j
+        vector<int> palindromes; // stores only palindromic prefix of words
     } *root , *curr;
 
     bool palindrome(string &s , int i , int j){
@@ -25,7 +25,7 @@ public:
             curr = curr -> child[j];
         }
         curr -> index = idx; // end of word
-        curr -> palindromes.push_back(idx);
+        curr -> palindromes.push_back(idx); // empty string is palindrome too. when prefix and suffix of two different words match i.e : abcd , dcba or one string is empty i.e: a , ""
     }
     vector<vector<int>> palindromePairs(vector<string>& words) {
         root = new Node();
