@@ -1,64 +1,56 @@
 class Solution {
-public:
-    struct Node {
-        bool isEnd = false;
+public: 
+    struct Node{
         Node* child[26] = {};
-    }* root = new Node();
-
-    // Resuable dp array
-    bool dp[31];
-
-    // Insert word into trie
-    void add(string& s) {
+        bool isEnd = false;
+    } *root = new Node();
+    void add(string &s){
         Node* curr = root;
-        for (char c : s) {
-            int idx = c - 'a';
-            if (!curr->child[idx])
-                curr->child[idx] = new Node();
-            curr = curr->child[idx];
+        for(char &c : s){
+            if(curr -> child[c - 'a'] == nullptr)
+                curr -> child[c - 'a'] = new Node();
+            curr = curr -> child[c - 'a'];
         }
-        curr->isEnd = true;
+        curr -> isEnd = true;
     }
-
-    // For a word, update dp for all possible break points
-    void updateDp(Node* node, string& word, int start) {
-        for (int i = start; i < word.size(); ++i) {
-            int idx = word[i] - 'a';
-            node = node->child[idx];
-            if (!node)
-                break;
-            if (node->isEnd) {
+    vector <bool> dp;
+    void solve(int start , string &s , Node* curr){
+        for(int i = start ; i < s.size() ; i++){
+            int idx = s[i] - 'a';
+            if(curr -> child[idx] == nullptr)
+                return;
+            curr = curr -> child[idx]; // after this curr points to first node
+            if(curr -> isEnd) // smaller word until 'i' has been found
                 dp[i + 1] = true;
-            }
         }
     }
-
     vector<string> findAllConcatenatedWordsInADict(vector<string>& words) {
-        // Sort by length
-        sort(words.begin(), words.end(), [](const string& a, const string& b) {
+        sort(words.begin() , words.end() , [&](string &a , string &b){
             return a.size() < b.size();
-        });
-
-        vector<string> ans;
-        for (string& word : words) {
-            if (word.empty())
-                continue;
-            // Reset DP for this word
-            memset(dp, false, sizeof(bool) * (word.size() + 1));
+        }); // start with smaller words
+        vector <string> ans;
+        for(string &s : words){
+            int n = s.size();
+            Node* curr = root;
+            dp = vector<bool> (n + 1);
             dp[0] = true;
-            // Update DP via trie
-            for (int i = 0; i < word.size(); ++i) {
-                if (dp[i]) {
-                    updateDp(root, word, i);
-                    if (dp[word.size()]) {
-                        ans.push_back(word);
-                        break;
-                    }
+            for(int i = 0 ; i < n ; i++){
+                if(not dp[i])continue;
+                solve(i , s , curr); 
+                if(dp[n]){
+                    ans.push_back(s);
+                    break;
                 }
             }
-            // Add current word to trie for future words
-            add(word);
+            add(s); // add later such that own word don't mess up the checking for smaller words
         }
         return ans;
     }
 };
+
+/*
+DP with Trie. But Such a hassle took too much time. For silly mistakes.
+Trie + DFS gives TLE. In DFS use local curr pointer to traverse Trie. Used global variable so didn't reset properly for every DFS call, couldn't find it, used too much time.
+When searching for a Trie, for the first time:
+curr -> child[c - 'a'] is the first node, not curr
+*/
